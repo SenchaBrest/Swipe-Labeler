@@ -43,8 +43,6 @@ class SwipeScreen extends React.Component {
       this.props.onAcceptClick();
     } else if (direction === "left") {
       this.props.onRejectClick();
-    } else if (direction === "down") {
-      this.props.onSkipClick();
     }
   };
 
@@ -54,8 +52,6 @@ class SwipeScreen extends React.Component {
       this.props.onAcceptClick();
     } else if (event.key === "ArrowLeft") {
       this.props.onRejectClick();
-    } else if (event.key === "ArrowDown") {
-      this.props.onSkipClick();
     }
   };
 
@@ -116,7 +112,7 @@ class SwipeScreen extends React.Component {
       obj = (
         <TinderCard
           onSwipe={this.onSwipe}
-          preventSwipe={["right", "left", "down", "up"]}
+          preventSwipe={["right", "left", "up"]}
         >
           <img src={this.props.image} alt="" />
         </TinderCard>
@@ -125,7 +121,7 @@ class SwipeScreen extends React.Component {
       obj = (
         <TinderCard
           onSwipe={this.onSwipe}
-          preventSwipe={["right", "left", "down", "up"]}
+          preventSwipe={["right", "left", "up"]}
         >
           <img src={this.props.image} alt="" />
         </TinderCard>
@@ -134,7 +130,7 @@ class SwipeScreen extends React.Component {
       obj = (
         <TinderCard
           onSwipe={this.onSwipe}
-          preventSwipe={["right", "left", "down", "up"]}
+          preventSwipe={["right", "left", "up"]}
         >
           <TransformWrapper
             options={{ centerContent: true }}
@@ -175,14 +171,6 @@ class SwipeScreen extends React.Component {
             </div>
             <div className="button-grp">
               <Button
-                className="quit-button"
-                intent="danger"
-                onClick={this.props.onQuitClick}
-                small={true}
-              >
-                <Icon icon="cross" iconSize={20} intent="danger" />{" "}
-              </Button>
-              <Button
                 id="share-button"
                 className="clipboard"
                 data-clipboard-target="#blank"
@@ -210,14 +198,6 @@ class SwipeScreen extends React.Component {
           </div>
           <div className="footer">
             <input type="text" id="blank" value={window.location.href} />
-            <Button
-              icon="arrow-down"
-              className="AcceptRejectButton"
-              intent="primary"
-              onClick={this.props.onSkipClick}
-            >
-              Skip
-            </Button>
             <Button
               icon="arrow-left"
               className="AcceptRejectButton"

@@ -6,31 +6,30 @@ import Confetti from "react-confetti";
 import "normalize.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
+import axios from "axios";
 
 class EndScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      leaderboard: {}
+    };
     //bind functions
     this.decideContinue = this.decideContinue.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get('/leaderboard')
+      .then(res => {
+        this.setState({ leaderboard: res.data });
+      })
+      .catch(err => console.log(err));
   }
 
   sendClose() {
     console.log("sendClose!!!!@!!!");
     window.open("", "_parent", "");
     window.close();
-  }
-
-  sendShutDown() {
-    // When the user clicks end,
-    // that choice gets sent to flask.
-    fetch("/end", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ready_to_end: "ready",
-      }),
-    });
   }
 
   detectTouch() {
@@ -61,7 +60,10 @@ class EndScreen extends React.Component {
           className="EndScreenButton"
           intent="primary"
           text={true}
-          onClick={() => window.location.reload()}
+          onClick={() => {
+            localStorage.setItem("keep_username", "true");
+            window.location.reload();
+          }}
         >
           Continue Labelling
         </Button>
@@ -70,61 +72,14 @@ class EndScreen extends React.Component {
     return obj;
   }
 
-  decideWarning() {
-    let warning;
-    if (this.detectTouch())
-      warning = (
-        <>
-          <div className="end-btn1">
-            <Button
-              id="end-btn"
-              icon="stop"
-              className="EndScreenButton"
-              intent="danger"
-              onClick={this.sendShutDown}
-            >
-              Shut down App
-            </Button>
-          </div>
-          <div
-            style={{
-              display: "block",
-              backgroundColor: "antiquewhite",
-              fontSize: "1rem",
-            }}
-          >
-            {" "}
-            Warning: If other people are using the App, ShutDown ends it for
-            them too!
-          </div>
-        </>
-      );
-    else
-      warning = (
-        <>
-          <div className="end-btn1">
-            <Button
-              id="end-btn"
-              icon="stop"
-              className="EndScreenButton"
-              intent="danger"
-              onClick={this.sendShutDown}
-            >
-              Shut down App
-            </Button>
-          </div>
-          <div className="hover-text">
-            Warning: If other people are using the App, this ends it for them
-            too!
-          </div>
-        </>
-      );
-    return warning;
-  }
   render() {
     this.props.setTutorialSeen();
     let obj = this.decideContinue();
-    let warning = this.decideWarning();
+
+    // Sort leaderboard
+    const sortedLeaderboard = Object.entries(this.state.leaderboard)
+      .sort(([, a], [, b]) => b - a);
+
     return (
       <>
         <Confetti />
@@ -132,6 +87,7 @@ class EndScreen extends React.Component {
           className="EndScreen"
           style={{
             backgroundImage: "url('" + astronaut + "')",
+            overflowY: "auto"
           }}
         >
           <div className="EndScreen_Text">Mission accomplished! Good job!</div>
@@ -140,18 +96,19 @@ class EndScreen extends React.Component {
           </div>
           <div className="endscreen-btn-grp">
             {obj}
-
-            {/* <Button
-              id="end-btn"
-              icon="small-cross"
-              className="EndScreenButton"
-              intent="success"
-              onClick={this.sendClose}
-            >
-              Close App
-            </Button> */}
-            {warning}
           </div>
+
+          <div style={{ marginTop: "20px", color: "white", backgroundColor: "rgba(0,0,0,0.7)", padding: "20px", borderRadius: "10px", maxWidth: "400px", margin: "20px auto" }}>
+            <h3>Leaderboard</h3>
+            <ul style={{ listStyleType: "none", padding: 0 }}>
+              {sortedLeaderboard.map(([name, count], index) => (
+                <li key={name} style={{ margin: "5px 0", fontSize: "1.2em" }}>
+                  {index + 1}. {name}: {count}
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
       </>
     );

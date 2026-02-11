@@ -3,10 +3,31 @@ import os
 import random
 import shutil
 import time
+import json
 
 from flask import Flask, request, send_from_directory, render_template, session
 from flask.logging import create_logger
 from argparse import ArgumentParser
+
+STATS_FILE = 'user_stats.json'
+
+def get_stats():
+    if not os.path.exists(STATS_FILE):
+        return {}
+    try:
+        with open(STATS_FILE, 'r') as f:
+            return json.load(f)
+    except:
+        return {}
+
+def update_stats(username):
+    stats = get_stats()
+    if username in stats:
+        stats[username] += 1
+    else:
+        stats[username] = 1
+    with open(STATS_FILE, 'w') as f:
+        json.dump(stats, f)
 
 parser = ArgumentParser()
 parser.add_argument('--batch_size', type=int, help='how many items to label')
@@ -277,7 +298,14 @@ def submit_label():
                 # Move the file to the unsure folder.
                 shutil.move(old_path, unsure_path)
 
+    username = request.get_json().get('username', 'Anonymous')
+    update_stats(username)
+
     return {'status': 'success','old_path':old_path}
+
+@app.route('/leaderboard')
+def leaderboard():
+    return get_stats()
 
 @app.route('/undo', methods=['POST'])
 def undo_swipe():
@@ -378,5 +406,5 @@ def end_app():
             shutdown_hook()
     return {'status': 'success'}
 
-
-app.run(host='0.0.0.0',port=int('8080'))
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',port=int('8080'))

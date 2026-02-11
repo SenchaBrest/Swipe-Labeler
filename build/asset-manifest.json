@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.d8d0b306.chunk.css",
-    "main.js": "/static/js/main.6ab22a14.chunk.js",
-    "main.js.map": "/static/js/main.6ab22a14.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.02cf2078.js",
-    "runtime-main.js.map": "/static/js/runtime-main.02cf2078.js.map",
+    "main.css": "/static/css/main.64ca62b4.chunk.css",
+    "main.js": "/static/js/main.2e5f114d.chunk.js",
+    "main.js.map": "/static/js/main.2e5f114d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.5b354f29.js",
+    "runtime-main.js.map": "/static/js/runtime-main.5b354f29.js.map",
     "static/css/2.9a8a6a5d.chunk.css": "/static/css/2.9a8a6a5d.chunk.css",
-    "static/js/2.3360c3da.chunk.js": "/static/js/2.3360c3da.chunk.js",
-    "static/js/2.3360c3da.chunk.js.map": "/static/js/2.3360c3da.chunk.js.map",
-    "static/js/3.00550d39.chunk.js": "/static/js/3.00550d39.chunk.js",
-    "static/js/3.00550d39.chunk.js.map": "/static/js/3.00550d39.chunk.js.map",
+    "static/js/2.d88e4385.chunk.js": "/static/js/2.d88e4385.chunk.js",
+    "static/js/2.d88e4385.chunk.js.map": "/static/js/2.d88e4385.chunk.js.map",
+    "static/js/3.85944d5d.chunk.js": "/static/js/3.85944d5d.chunk.js",
+    "static/js/3.85944d5d.chunk.js.map": "/static/js/3.85944d5d.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.9a8a6a5d.chunk.css.map": "/static/css/2.9a8a6a5d.chunk.css.map",
-    "static/css/main.d8d0b306.chunk.css.map": "/static/css/main.d8d0b306.chunk.css.map",
-    "static/js/2.3360c3da.chunk.js.LICENSE.txt": "/static/js/2.3360c3da.chunk.js.LICENSE.txt",
+    "static/css/main.64ca62b4.chunk.css.map": "/static/css/main.64ca62b4.chunk.css.map",
+    "static/js/2.d88e4385.chunk.js.LICENSE.txt": "/static/js/2.d88e4385.chunk.js.LICENSE.txt",
     "static/media/arrowdown.e0f48ec1.gif": "/static/media/arrowdown.e0f48ec1.gif",
     "static/media/arrowleft.26090565.gif": "/static/media/arrowleft.26090565.gif",
     "static/media/arrowright.51a39359.gif": "/static/media/arrowright.51a39359.gif",
@@ -25,10 +25,10 @@
     "static/media/welcome.29484c0b.jpeg": "/static/media/welcome.29484c0b.jpeg"
   },
   "entrypoints": [
-    "static/js/runtime-main.02cf2078.js",
+    "static/js/runtime-main.5b354f29.js",
     "static/css/2.9a8a6a5d.chunk.css",
-    "static/js/2.3360c3da.chunk.js",
-    "static/css/main.d8d0b306.chunk.css",
-    "static/js/main.6ab22a14.chunk.js"
+    "static/js/2.d88e4385.chunk.js",
+    "static/css/main.64ca62b4.chunk.css",
+    "static/js/main.2e5f114d.chunk.js"
   ]
 }

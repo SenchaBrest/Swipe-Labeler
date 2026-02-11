@@ -26,8 +26,17 @@ export default class App extends React.Component {
   // Main component
   constructor(props) {
     super(props);
+    // Check for persistence flag
+    const keepUsername = localStorage.getItem("keep_username");
+    const savedUsername = keepUsername ? localStorage.getItem("username") : "";
+
+    // Consume the flag so subsequent reloads (manual refresh) don't keep the name
+    if (keepUsername) {
+      localStorage.removeItem("keep_username");
+    }
+
     this.state = {
-      view: hasSeenTutorial() ? "active" : "welcome",
+      view: (hasSeenTutorial() && savedUsername) ? "active" : "welcome",
       // view: "welcome",
       index: 0,
       image: null,
@@ -43,6 +52,7 @@ export default class App extends React.Component {
       labeledSize: 0,
       progWidth: 0,
       displayProg: "prog-bar",
+      username: savedUsername,
     };
 
     // bind functions
@@ -54,7 +64,7 @@ export default class App extends React.Component {
     this.onBackClick = this.onBackClick.bind(this);
     this.onQuitClick = this.onQuitClick.bind(this);
     this.endTutorial = this.endTutorial.bind(this);
-    this.startTutorial = this.startTutorial.bind(this);
+    // this.startTutorial = this.startTutorial.bind(this);
     this.startLabel = this.startLabel.bind(this);
     this.setLoading = this.setLoading.bind(this);
     this.getBatchSize = this.getBatchSize.bind(this);
@@ -209,6 +219,7 @@ export default class App extends React.Component {
       body: JSON.stringify({
         image_url: this.state.image,
         value: value,
+        username: this.state.username,
       }),
     });
   }
@@ -369,16 +380,17 @@ export default class App extends React.Component {
       .catch((err) => console.log("ERROR: ", err));
   }
 
-  startTutorial() {
-    console.log("hello world from start");
-    this.setState({
-      view: "tutorial",
-    });
-  }
+  // startTutorial() {
+  //   console.log("hello world from start");
+  //   this.setState({
+  //     view: "tutorial",
+  //   });
+  // }
 
-  startLabel() {
+  startLabel(username) {
     this.setState({
       view: "active",
+      username: username
     });
   }
 
